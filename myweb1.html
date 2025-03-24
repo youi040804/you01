@@ -6,6 +6,24 @@
         <script src="file:///C:/Users/mitsu/OneDrive/%E6%A1%8C%E9%9D%A2/my%20website/script.js" defer=""></script>
     </head>
     <body>
+<div class="sidebar" id="menu">
+    <button onclick="toggleMenu()">☰</button>
+    <ul>
+        <li><a href="#">首页</a></li>
+        <li><a href="#">关于</a></li>
+        <li><a href="#">作品</a></li>
+    </ul>
+
+    <script>
+        document.querySelector("button").addEventListener("click", function () {
+            let menu = document.getElementById("menu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        });
+    </script>
+</div>
+
+
+        
     <div style="
     background-color:#40E0D0;
     text-align:center;
