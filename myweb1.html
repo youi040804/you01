@@ -1,6 +1,11 @@
 
 <!-- saved from url=(0132)file:///C:/Users/mitsu/OneDrive/%E6%A1%8C%E9%9D%A2/my%20website/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BD%91%E9%A1%B5.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="file:///C:/Users/mitsu/OneDrive/%E6%A1%8C%E9%9D%A2/my%20website/script.js" defer=""></script>
+    </head>
+    <body>
     <div style="
     background-color:#40E0D0;
     text-align:center;
@@ -17,10 +22,24 @@
     padding:20px;
     ">
          <p>感谢浏览</p>
-          <button onclick="document.getElementById(&#39;myAudio&#39;).play()">🎵 聆听我的音乐</button>
+       <button id="playButton" onclick="togglePlay()">🎵 继续播放</button>
 
 <audio id="myAudio">
     <source src="https://raw.githubusercontent.com/youi040804/youi01/main/%E5%88%9D%E5%A4%8F%E8%9B%99%E5%A3%B022.5.3.m4a" type="audio/mp4">
 </audio>
+     <script>
+function togglePlay() {
+    var audio = document.getElementById("myAudio");
+    var button = document.getElementById("playButton");
+
+    if (audio.paused) {
+        audio.play();
+        button.innerText = "⏸ 暂停";
+    } else {
+        audio.pause();
+        button.innerText = "🎵 继续播放";
+    }
+}
+</script>
     </div>
    </body></html>
