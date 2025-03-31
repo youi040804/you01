@@ -1,63 +1,133 @@
 
 <!-- saved from url=(0132)file:///C:/Users/mitsu/OneDrive/%E6%A1%8C%E9%9D%A2/my%20website/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BD%91%E9%A1%B5.html -->
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="file:///C:/Users/mitsu/OneDrive/%E6%A1%8C%E9%9D%A2/my%20website/script.js" defer=""></script>
-    </head>
-    <body>
-<div class="sidebar" id="menu">
-    <button onclick="toggleMenu()">☰</button>
-    <ul>
-        <li><a href="#">首页</a></li>
-        <li><a href="#">关于</a></li>
-        <li><a href="#">作品</a></li>
-    </ul>
-
-    <script>
-        document.querySelector("button").addEventListener("click", function () {
-            let menu = document.getElementById("menu");
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        });
-    </script>
-</div>
-
-
+    
+    <!-- CSS 样式 -->
+    <style>
         
-    <div style="
-    background-color:#40E0D0;
-    text-align:center;
-    padding:40px;
-    ">
-         <p>Let life be beautiful like summer flowers and death like autumn leaves.</p>
-         <img src="https://raw.githubusercontent.com/youi040804/youi01/main/myphoto2.jpg" 
-             style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;" alt="猫头鹰"> 
+ /* 头像样式 */
+      .avator {
+            width: 150px;
+            padding: 20px;
+            height:150px;
+            background-color:#40E0D0;
+            display: inline-flex;  /* 改用 Flexbox */
+           justify-content: center;
+            align-items: center;
+            vertical-align: top;
+            
+        }
+        .avator img {
+            width: 100px;
+            height: 100px;
+           border-radius: 50%;
+           object-fit: cover;
+               }
+        
+ /* 音乐播放器样式 */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .player {
+            display: inline-block;
+            width: 300px;
+        }
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: #ddd;
+            position: relative;
+            cursor: pointer;
+        }
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background: #ff5733;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+    </style>
+ <body>
+     
+  <div>
+    <div class="avator">
+        <img src="./myweb1_files/myphoto2.jpg" alt="猫头鹰">
     </div>
-   
- <div style="
+  </div>
+
+     <div class="player">
+    <audio id="audio">
+    <source src="https://youi040804.github.io/youi01/初夏蛙声22.5.3.m4a" type="audio/mp4">
+</audio>
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar" id="progress-bar" style="width: 2.11423%;"></div>
+        </div>
+        <span id="current-time">0:01</span> / <span id="duration">0:56</span>
+        <br>
+        <button id="play-pause">▶️</button>
+<script>
+        const audio = document.getElementById("audio");
+        const playPauseBtn = document.getElementById("play-pause");
+        const progressBar = document.getElementById("progress-bar");
+        const progressContainer = document.getElementById("progress-container");
+        const currentTimeEl = document.getElementById("current-time");
+        const durationEl = document.getElementById("duration");
+
+   // 确保 duration 只有在音频加载完成后才更新
+    audio.addEventListener("canplay", () => {
+        durationEl.textContent = formatTime(audio.duration);
+    });
+        // 播放/暂停按钮
+        playPauseBtn.addEventListener("click", () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = "⏸️"; 
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = "▶️"; 
+            }
+        });
+
+        // 更新进度条
+        audio.addEventListener("timeupdate", () => {
+            const { currentTime, duration } = audio;
+            const progressPercent = (currentTime / duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            currentTimeEl.textContent = formatTime(currentTime);
+            durationEl.textContent = formatTime(duration);
+        });
+
+        // 进度条点击调整播放位置
+        progressContainer.addEventListener("click", (e) => {
+            const width = progressContainer.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            audio.currentTime = (clickX / width) * duration;
+        });
+
+        // 格式化时间
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+        }
+    </script>
+    </div>
+<div style="
     background-color:#9ACD32;
     text-align:center;
     padding:20px;
     ">
          <p>感谢浏览</p>
-       <button id="playButton" onclick="togglePlay()">🎵 继续播放</button>
+</div>
 
-<audio id="myAudio">
-    <source src="https://raw.githubusercontent.com/youi040804/youi01/main/%E5%88%9D%E5%A4%8F%E8%9B%99%E5%A3%B022.5.3.m4a" type="audio/mp4">
-</audio>
-     <script>
-function togglePlay() {
-    var audio = document.getElementById("myAudio");
-    var button = document.getElementById("playButton");
-
-    if (audio.paused) {
-        audio.play();
-        button.innerText = "⏸ 暂停";
-    } else {
-        audio.pause();
-        button.innerText = "🎵 继续播放";
-    }
-}
-</script>
-    </div>
-   </body></html>
+   </body>
+</html>
